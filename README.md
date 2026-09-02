@@ -5,11 +5,13 @@ TLaurion has merged the tools required to test for this into heads. He has also 
 
 https://ticket.coreboot.org/issues/576 is the issue tracked
 
-https://review.coreboot.org/c/coreboot/+/90884 is the merged patch
-https://review.coreboot.org/c/coreboot/+/90885 remains unmerged
+https://review.coreboot.org/c/coreboot/+/90884 is the merged patch.
+https://review.coreboot.org/c/coreboot/+/90885 remains unmerged.
 https://review.coreboot.org/c/coreboot/+/93324/3 is visible through Relation chain.
 
 https://mkukri.xyz/2024/06/01/tpm-gpio-fail.html Gives a good runthrough
+
+https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/gpio-configuration-best-practices.html is the guidance offered by Intel
 
 # Heads: the other side of TAILS
 
