@@ -1,3 +1,16 @@
+# Editing README for this branch:
+The fix for TPM/GPIO must come from upstream coreboot. Only one of those three patches added here are actually merged. Once they are merged upstream, then they must be ported to 25.12, with manual intervention as required. Applying to 25.12 right now offers no build issues, and no patch conflicts. See the following resources:
+
+TLaurion has merged the tools required to test for this into heads. He has also made a Poc.
+
+https://ticket.coreboot.org/issues/576 is the issue tracked
+
+https://review.coreboot.org/c/coreboot/+/90884 is the merged patch
+https://review.coreboot.org/c/coreboot/+/90885 remains unmerged
+https://review.coreboot.org/c/coreboot/+/93324/3 is visible through Relation chain.
+
+https://mkukri.xyz/2024/06/01/tpm-gpio-fail.html Gives a good runthrough
+
 # Heads: the other side of TAILS
 
 ![Heads booting on an x230](https://user-images.githubusercontent.com/827570/156627927-7239a936-e7b1-4ffb-9329-1c422dc70266.jpeg)
