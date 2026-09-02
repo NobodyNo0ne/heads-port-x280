@@ -1,0 +1,40 @@
+From 5a5d95f9aaaa8409d08c1338774005d9584bc8da Mon Sep 17 00:00:00 2001
+From: Nicholas Chin <nic.c3.14@gmail.com>
+Date: Sat, 24 Jan 2026 19:30:18 -0700
+Subject: [PATCH] soc/intel/skylake: Select
+ SOC_INTEL_COMMON_BLOCK_GPIO_LOCK_USING_PCR
+
+The gpio_non_smm_lock_pad() function requires that the SoC selects a
+method to access the GPIO config registers. Without this, GPIO pads are
+not able to be locked, resulting in vulnerabilities such as TPM GPIO
+reset attacks [1]. Select the PCR method as it uses low overhead MMIO
+accesses instead of commands sent through the sideband interface. The
+SBI method also does not appear to work on Skylake.
+
+TEST=TODO
+
+Resolves: https://ticket.coreboot.org/issues/576
+
+[1]: https://mkukri.xyz/2024/06/01/tpm-gpio-fail.html
+
+Change-Id: I13a2cc32f39ab635ce5c8a2d405dcf48225e8cf7
+Signed-off-by: Nicholas Chin <nic.c3.14@gmail.com>
+---
+ src/soc/intel/skylake/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/soc/intel/skylake/Kconfig b/src/soc/intel/skylake/Kconfig
+index 7c530f2c75f..88e8dbc89d1 100644
+--- a/src/soc/intel/skylake/Kconfig
++++ b/src/soc/intel/skylake/Kconfig
+@@ -44,6 +44,7 @@ config SOC_INTEL_COMMON_SKYLAKE_BASE
+ 	select SOC_INTEL_COMMON_BLOCK_CPU_MPINIT
+ 	select SOC_INTEL_COMMON_BLOCK_CPU_SMMRELOCATE
+ 	select SOC_INTEL_COMMON_BLOCK_GPIO_DUAL_ROUTE_SUPPORT
++	select SOC_INTEL_COMMON_BLOCK_GPIO_LOCK_USING_PCR
+ 	select SOC_INTEL_COMMON_BLOCK_GPIO_PADCFG_PADTOL
+ 	select SOC_INTEL_COMMON_BLOCK_GSPI
+ 	select SOC_INTEL_COMMON_BLOCK_HDA
+-- 
+2.55.0
+

@@ -1,0 +1,69 @@
+From f05ea728508ca14d20ce9902954711ff07cc209d Mon Sep 17 00:00:00 2001
+From: Nicholas Chin <nic.c3.14@gmail.com>
+Date: Sat, 24 Jan 2026 19:20:21 -0700
+Subject: [PATCH] soc/intel/skylake: Set pad_cfg_lock_offset in
+ skl_gpio_communities
+
+The GPIO pad community definition for Skylake does not set the
+pad_cfg_lock_offset member, leading to an "offset not defined for pad"
+error when trying to lock a pad config in gpio_non_smm_lock_pad().
+
+Change-Id: I2991a7cbfb333d9fdda008cbb4cbc272aa508ef0
+Signed-off-by: Nicholas Chin <nic.c3.14@gmail.com>
+---
+ src/soc/intel/skylake/gpio.c                  | 4 ++++
+ src/soc/intel/skylake/include/soc/gpio_defs.h | 2 ++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/src/soc/intel/skylake/gpio.c b/src/soc/intel/skylake/gpio.c
+index 50628a7d98..d1d773bfff 100644
+--- a/src/soc/intel/skylake/gpio.c
++++ b/src/soc/intel/skylake/gpio.c
+@@ -57,6 +57,7 @@ static const struct pad_community skl_gpio_communities[] = {
+ 		.last_pad = GPP_B23,
+ 		.num_gpi_regs = NUM_GPIO_COM0_GPI_REGS,
+ 		.pad_cfg_base = PAD_CFG_BASE,
++		.pad_cfg_lock_offset = PAD_CFG_LOCK_OFFSET,
+ 		.host_own_reg_0 = HOSTSW_OWN_REG_0,
+ 		.gpi_int_sts_reg_0 = GPI_INT_STS_0,
+ 		.gpi_int_en_reg_0 = GPI_INT_EN_0,
+@@ -81,6 +82,7 @@ static const struct pad_community skl_gpio_communities[] = {
+ #endif
+ 		.num_gpi_regs = NUM_GPIO_COM1_GPI_REGS,
+ 		.pad_cfg_base = PAD_CFG_BASE,
++		.pad_cfg_lock_offset = PAD_CFG_LOCK_OFFSET,
+ 		.host_own_reg_0 = HOSTSW_OWN_REG_0,
+ 		.gpi_int_sts_reg_0 = GPI_INT_STS_0,
+ 		.gpi_int_en_reg_0 = GPI_INT_EN_0,
+@@ -106,6 +108,7 @@ static const struct pad_community skl_gpio_communities[] = {
+ #endif
+ 		.num_gpi_regs = NUM_GPIO_COM3_GPI_REGS,
+ 		.pad_cfg_base = PAD_CFG_BASE,
++		.pad_cfg_lock_offset = PAD_CFG_LOCK_OFFSET,
+ 		.host_own_reg_0 = HOSTSW_OWN_REG_0,
+ 		.gpi_int_sts_reg_0 = GPI_INT_STS_0,
+ 		.gpi_int_en_reg_0 = GPI_INT_EN_0,
+@@ -126,6 +129,7 @@ static const struct pad_community skl_gpio_communities[] = {
+ 		.last_pad = GPD11,
+ 		.num_gpi_regs = NUM_GPIO_COM2_GPI_REGS,
+ 		.pad_cfg_base = PAD_CFG_BASE,
++		.pad_cfg_lock_offset = PAD_CFG_LOCK_OFFSET,
+ 		.host_own_reg_0 = HOSTSW_OWN_REG_0,
+ 		.gpi_int_sts_reg_0 = GPI_INT_STS_0,
+ 		.gpi_int_en_reg_0 = GPI_INT_EN_0,
+diff --git a/src/soc/intel/skylake/include/soc/gpio_defs.h b/src/soc/intel/skylake/include/soc/gpio_defs.h
+index 0e98b89169..3c0a5d6059 100644
+--- a/src/soc/intel/skylake/include/soc/gpio_defs.h
++++ b/src/soc/intel/skylake/include/soc/gpio_defs.h
+@@ -25,6 +25,8 @@
+ 		(NUM_GPIO_COM3_GPI_REGS) +\
+ 		(NUM_GPIO_COM2_GPI_REGS))
+ 
++#define PAD_CFG_LOCK_OFFSET		0xa0
++
+ /*
+  * IOxAPIC IRQs for the GPIOs
+  */
+-- 
+2.55.0
+
